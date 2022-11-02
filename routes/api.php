@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PDFTemplateController;
+use App\Http\Controllers\TaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,16 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/logout', 'logout');
     Route::post('/refresh', 'refresh');
+});
+
+Route::controller(TaxController::class)->group(function () {
+    Route::get('/taxes', 'index');
+    Route::get('/taxes/{tax}', 'show');
+    Route::get('/taxes/{uuid}/type/{type}', 'validity');
+    Route::post('/taxes', 'store');
+    Route::delete('/taxes/{tax}', 'destroy');
+});
+
+Route::controller(PDFTemplateController::class)->group(function () {
+    Route::post('/templates/qr-code', 'qrCode');
 });
