@@ -11,7 +11,7 @@ class TaxController extends Controller
 {
     public function index()
     {
-        return Tax::paginate();
+        return Tax::filterByExpediente(request('expediente'))->paginate();
     }
 
     public function show(Tax $tax)
