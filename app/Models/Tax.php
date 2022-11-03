@@ -29,4 +29,19 @@ class Tax extends Model
         'FECHA_EMISION',
         'VIGENCIA',
     ];
+
+    /**
+     * Scope a query to filter by inventory number.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopefilterByExpediente($query, $expediente)
+    {
+        if ($expediente) {
+            return $query->where('EXP', 'like', "%{$expediente}%");
+        }
+
+        return $query;
+    }
 }
