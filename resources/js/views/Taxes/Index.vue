@@ -30,6 +30,7 @@
           { name: 'NO_ADEUDO_PREDIAL', label: 'Predial' },
           { name: 'APORTACIONES_MEJORAS', label: 'Aportacion Mejoras' },
           { name: 'NOMBRE', label: 'Nombre' },
+          { name: 'created_in_year', label: 'AÑO' },
         ]"
         :data="app.taxes.data"
         :action="app.goToTaxDetails"

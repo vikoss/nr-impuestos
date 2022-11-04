@@ -8,6 +8,7 @@ const validateTaxNumberMap = (tax) => {
   tax.APORTACIONES_MEJORAS = parseInt(tax.APORTACIONES_MEJORAS)
     ? `${parseInt(tax.APORTACIONES_MEJORAS)}`
     : 'S/N'
+  tax.created_in_year = new Date(tax.created_at).getFullYear() || ''
 
   return tax
 }
