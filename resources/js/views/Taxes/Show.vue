@@ -2,10 +2,13 @@
   <header-base />
   <main class="px-6 sm:px-16 py-12">
     <redirect-to-back :route="app.goToTaxIndex" />
-    <title-bar
-      title="Genera QR"
-      subtitle="Consulta la información del vehículo. De ser necesario puedes cargar documentación."
-    />
+    <div class="flex justify-between items-center gap-10">
+      <title-bar
+        title="Genera QR"
+        subtitle="Consulta la información del vehículo. De ser necesario puedes cargar documentación."
+      />
+      <delete-item-svg class="w-12 h-max cursor-pointer" @click="() => (app.modals.deleteTax = true)" />
+    </div>
     <div class="grid sm:grid-cols-2 gap-y-5 gap-x-8">
       <input-base
         id="expediente"
@@ -79,6 +82,19 @@
       :url="app.urlQrCodePDF"
       :closed="() => (app.modals.showPDF = false)"
     />
+    <modal-confirm
+      :show="app.modals.deleteTax"
+      message="¿Desea elimiar el expediente?"
+      :action="app.deleteTax"
+      :closed="() => (app.modals.deleteTax = false)"
+    />
+    <modal-success
+      :show="app.modals.success"
+      :closed="app.goToTaxIndex"
+      :action="app.goToTaxIndex"
+      message="El expediente se elimino exitosamente."
+    />
+    <loading v-show="app.loading" />
   </main>
 </template>
 
@@ -95,6 +111,9 @@ import TitleBar from '../../components/TitleBar.vue'
 import Loading from '../../components/LoadingBalls.vue'
 import ModalShowPdf from './../../components/ModalShowPDF.vue'
 import { validateTaxNumberMap } from './../../helpers/mappers'
+import DeleteItemSvg from '../../components/svg/DeleteItem.vue'
+import ModalConfirm from '../../components/ModalConfirm.vue'
+import ModalSuccess from '../../components/ModalSuccess.vue'
 
 export default {
   components: {
@@ -105,6 +124,9 @@ export default {
     ButtonBase,
     Loading,
     ModalShowPdf,
+    DeleteItemSvg,
+    ModalConfirm,
+    ModalSuccess,
   },
   setup() {
     const router = useRouter()
@@ -115,7 +137,8 @@ export default {
       urlQrCodePDF: '',
       modals: {
         showPDF: false,
-        confirm: false,
+        deleteTax: false,
+        success: false,
       },
       fetchTax: async () => {
         app.loading = true
@@ -132,6 +155,16 @@ export default {
         app.modals.showPDF = true
       },
       goToTaxIndex: () => router.push({ name: 'TaxIndex' }),
+      deleteTax: async () => {
+        app.loading = true
+        try {
+          await destroyTax(app.tax.id)
+        } catch (error) {
+          console.error(error)
+        }
+        app.loading = false
+        app.modals.success = true
+      },
     })
 
     app.fetchTax()
