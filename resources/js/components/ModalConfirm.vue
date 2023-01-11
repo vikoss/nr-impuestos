@@ -27,7 +27,7 @@
 <script>
 import ModalBase from './ModalBase.vue'
 import ButtonBase from './ButtonBase.vue'
-import SuccessSvg from '../svg/Success.vue'
+import SuccessSvg from './svg/Success.vue'
 export default {
   components: {
     ModalBase,
