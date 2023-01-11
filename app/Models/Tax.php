@@ -39,7 +39,7 @@ class Tax extends Model
     public function scopefilterByExpediente($query, $expediente)
     {
         if ($expediente) {
-            return $query->where('EXP', 'like', "%{$expediente}%");
+            return $query->where('EXP', $expediente);
         }
 
         return $query;
