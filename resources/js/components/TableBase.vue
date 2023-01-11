@@ -4,7 +4,8 @@
       <th class="text-wine" v-for="(header, index) in headers" :key="index">{{ header.label }}</th>
     </tr>
     <tr
-      class="h-16 rounded-md hover:bg-gray-200 cursor-pointer rounded-l-md"
+      id="rows"
+      class="h-16 rounded-md cursor-pointer rounded-l-md"
       style="box-shadow: 0px 0px 16px #00000029;"
       :class="{ 'text-gray': !!item[propertyForTextGray] }"
       v-for="(item, index) in data"
@@ -57,5 +58,12 @@ td:first-child {
   border-color: #54191b;
   border-top-left-radius: 0.375rem;
   border-bottom-left-radius: 0.375rem;
+}
+#rows {
+  transition: all 0.2s;
+}
+#rows:hover {
+  transform: scale(1.03);
+  box-shadow: 0 1px 2px 1px #0000000f;
 }
 </style>
