@@ -11,7 +11,7 @@
             }
             .container {
                 position: absolute;
-                bottom: 75px;
+                bottom: 80px;
                 left: 20px;
                 max-width: 100%;
             }
