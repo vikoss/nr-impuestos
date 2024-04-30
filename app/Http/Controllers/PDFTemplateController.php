@@ -14,7 +14,7 @@ class PDFTemplateController extends Controller
     {
         $tax = TaxMapper::addFolio(Tax::find($request->taxId), $request->taxType);
         $qrCode = base64_encode(
-            QrCode::size(110)->generate(url("/{$tax->SLUG}/{$tax->uuid}/"))
+            QrCode::size(90)->generate(url("/{$tax->SLUG}/{$tax->uuid}/"))
         );
         $stringCode = "{$request->taxType}{$tax->FOLIO}|{$tax->CLAVE_CAT}|{$tax->FECHA_EMISION}|{$tax->uuid}|".base64_encode($tax->NOMBRE);
         $pdf = PDF::loadView('templates.qrCode', compact('qrCode', 'stringCode'));
