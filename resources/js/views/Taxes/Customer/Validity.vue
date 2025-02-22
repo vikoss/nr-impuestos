@@ -2,7 +2,7 @@
   <header-customer />
   <main class="px-6 sm:px-16 py-12">
     <title-bar
-      :title="`Ayuntamiento De Nicolás Romero ${app.date.getFullYear()}`"
+      :title="`Ayuntamiento De Tu Empresa ${app.date.getFullYear()}`"
       subtitle="Certificaciones vigentes"
     />
     <div class="grid sm:grid-cols-2 gap-y-5 gap-x-8">
