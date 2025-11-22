@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    image: mi-laravel:latest
+    depends_on:
+      - db
+    environment:
+      # En local fijamos PORT=8000; en Railway BORRA esta variable para que la plataforma asigne PORT dinámico.
+      #PORT: 8000
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
+    ports:
+      - "8000:8000"
+    # Para desarrollo podrías montar el código:
+    # volumes:
+    #   - ./:/var/www/html:delegated
+
+volumes:
+  db_data:
