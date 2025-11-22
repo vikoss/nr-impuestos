@@ -7,13 +7,13 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'wine': '#54191b',
+      'wine': '#660032',
       'wine-100': '#691c32',
       'wine-200': '#8e1537',
       'wine-logo': '#73051c',
       'red-error': '#d93025',
-      'gray': '#a0a0a0',
-      'gray-100': '#d5d6d1',
+      'gray': '#666666',
+      'gray-100': '#999999',
       'gray-200': '#e0e2e0',
       'gray-300': '#f5f5f5',
       'white': '#ffffff',

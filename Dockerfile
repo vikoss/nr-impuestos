@@ -8,8 +8,8 @@ COPY tailwind.config.js postcss.config.js ./
 COPY resources ./resources
 RUN npm run build
 
-# Stage: instalar dependencias PHP (vendor) sin scripts
-FROM php:8.2-fpm-bullseye AS php_vendor
+# Stage: base PHP con extensiones instaladas (reutilizable)
+FROM php:8.2-fpm-bullseye AS php_base
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_MEMORY_LIMIT=-1
 WORKDIR /var/www/html
@@ -20,11 +20,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && docker-php-ext-install -j"$(nproc)" gd zip pdo_mysql mbstring bcmath intl pcntl exif opcache \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Stage: instalar dependencias PHP (vendor) sin scripts
+FROM php_base AS php_vendor
+WORKDIR /var/www/html
 COPY composer.json composer.lock* ./
 RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader --no-scripts
 
 # Stage final: runtime (php-fpm + nginx)
-FROM php:8.2-fpm-bullseye AS app
+FROM php_base AS app
 WORKDIR /var/www/html
 
 # Instalar nginx y envsubst
