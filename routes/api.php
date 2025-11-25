@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\PDFTemplateController;
 use App\Http\Controllers\TaxController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,8 @@ Route::controller(TaxController::class)->group(function () {
 
 Route::controller(PDFTemplateController::class)->group(function () {
     Route::post('/templates/qr-code', 'qrCode');
+});
+
+Route::controller(ContratoController::class)->group(function () {
+    Route::post('/generar-contrato-pdf', 'generarContratoPdf');
 });
