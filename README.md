@@ -7,6 +7,65 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Generación de Contrato PDF
+
+### Instalación de dependencias
+
+Para utilizar la funcionalidad de generación de contratos PDF, asegúrese de tener instaladas las siguientes dependencias:
+
+```bash
+composer require barryvdh/laravel-dompdf
+composer require simplesoftwareio/simple-qrcode
+```
+
+### Endpoint: Generar Contrato PDF
+
+**Ruta**: `POST /api/generar-contrato-pdf`
+
+**Descripción**: Genera un PDF firmado basado en una plantilla de contrato de prestación de servicios educativos.
+
+#### Datos de entrada (JSON)
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `nombre_proveedor` | string | Nombre del proveedor |
+| `nombre_representante_legal` | string | Nombre del representante legal (Padre de familia o tutor legal) |
+| `fecha` | string | Fecha en formato "dd de mes de año" (ej: "13 de septiembre de 2021") |
+| `folio` | string | Número de folio del contrato (ej: "4279-2021") |
+| `numero_contrato` | string | Número de contrato para generar el código QR |
+
+#### Ejemplo de request
+
+```json
+{
+  "nombre_proveedor": "CENTRO DE EDUCACION INTEGRAL BRISALDY S. C.",
+  "nombre_representante_legal": "Juan Pérez García",
+  "fecha": "13 de septiembre de 2021",
+  "folio": "4279-2021",
+  "numero_contrato": "CONT-2026-001"
+}
+```
+
+#### Respuesta
+
+- **Content-Type**: `application/pdf`
+- **Nombre del archivo**: `contrato_{folio}.pdf`
+
+El endpoint retorna el PDF generado como descarga directa.
+
+#### Características del PDF generado
+
+- Logo CEILI en la parte superior
+- Título: "CICLO ESCOLAR 2026 – 2027 CONTRATO DE PRESTACIÓN DE SERVICIOS EDUCATIVOS"
+- Texto del contrato con los datos dinámicos insertados
+- Sección "EL PROVEEDOR" con nombre del proveedor
+- Sección "EL CONTRATANTE" con "PADRE DE FAMILIA O TUTOR LEGAL"
+- Área para firma del contratante con el nombre del representante legal
+- Código QR generado basado en el número de contrato
+- Número de folio y fecha de registro en la parte inferior
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
