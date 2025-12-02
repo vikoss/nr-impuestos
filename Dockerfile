@@ -16,8 +16,11 @@ WORKDIR /var/www/html
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl git unzip build-essential libzip-dev zlib1g-dev \
     libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libicu-dev \
+    libmagickwand-dev \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install -j"$(nproc)" gd zip pdo_mysql mbstring bcmath intl pcntl exif opcache \
+  && pecl install imagick \
+  && docker-php-ext-enable imagick \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -33,9 +36,6 @@ WORKDIR /var/www/html
 
 # Instalar nginx y envsubst
 RUN apt-get update && apt-get install -y --no-install-recommends qpdf nginx gettext-base \
-  ibmagickwand-dev \
-  && pecl install imagick \
-  && docker-php-ext-enable imagick \
   && rm -rf /var/lib/apt/lists/*
 
 # Traer vendor y composer
