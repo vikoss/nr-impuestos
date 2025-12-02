@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PDFTemplateController;
 use App\Http\Controllers\TaxController;
+use App\Http\Controllers\PdfSignatureController;
+use App\Http\Controllers\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +35,14 @@ Route::controller(TaxController::class)->group(function () {
 
 Route::controller(PDFTemplateController::class)->group(function () {
     Route::post('/templates/qr-code', 'qrCode');
+});
+
+// PDF signing and verification
+Route::middleware('auth:api')->post('/sign-pdf', [PdfSignatureController::class, 'sign']);
+Route::get('/qr/{uuid}', [PdfSignatureController::class, 'show']);
+
+// Provider profile management
+Route::middleware('auth:api')->controller(ProviderController::class)->group(function () {
+    Route::get('/provider', 'show');
+    Route::post('/provider', 'upsert');
 });

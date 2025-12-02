@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "copy:pdfjs": "rm -rf public/pdfjs && mkdir -p public/pdfjs/web public/pdfjs/build && cp -R node_modules/pdfjs-dist/web/* public/pdfjs/web/ && cp node_modules/pdfjs-dist/build/pdf.min.js public/pdfjs/build/pdf.min.js && cp node_modules/pdfjs-dist/build/pdf.worker.min.js public/pdfjs/build/pdf.worker.min.js"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.12",
@@ -14,6 +15,7 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^3.1.0",
+        "pdfjs-dist": "^3.11.174",
         "vue": "^3.2.40",
         "vue-loader": "^17.0.0",
         "vue-router": "^4.1.5"

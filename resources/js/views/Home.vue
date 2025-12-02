@@ -16,6 +16,13 @@
           :redirect-to="{ name: 'TaxCreate' }"
         />
       </div>
+      <div class="col-span-1">
+        <card-base
+          label="Firmar"
+          description="Firma digital de contratos."
+          :redirect-to="{ name: 'SignPdfIndex' }"
+        />
+      </div>
     </div>
   </main>
 </template>

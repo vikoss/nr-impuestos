@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { singPdfRoutes } from './signPdf.js'
 
 const routes = [
   {
@@ -41,6 +42,7 @@ const routes = [
     name: 'TaxValidity',
     component: () => import ('./../views/Taxes/Customer/Validity.vue'),
   },
+  ...singPdfRoutes,
 ]
 
 const router = createRouter({
