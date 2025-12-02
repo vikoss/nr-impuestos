@@ -51,7 +51,7 @@
       v-if="pdfBase64"
       id="signed-viewer"
       label="Contrato Firmado (Base64)"
-      :src-base64="pdfBase64"
+      :src="pdfBase64"
       containerHeight="70vh"
       :initialScale="0.9"
       class="mt-6"
