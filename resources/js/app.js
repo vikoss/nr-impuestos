@@ -7,6 +7,7 @@ import { isAuthenticated } from './helpers/localstorage'
 router.beforeEach((to, from, next) => {
   if (to.name === 'TaxValidityLegacy') return next()
   if (to.name === 'TaxValidity') return next()
+  if (to.name === 'SignPdfValidity') return next()
   if (to.name !== 'Login' && !isAuthenticated()) next({ name: 'Login' })
   else next()
 })

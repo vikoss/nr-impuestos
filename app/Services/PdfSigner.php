@@ -9,7 +9,7 @@ class PdfSigner
 {
     public function annotateLastPage(string $pdfContent, string $qrPngContent, string $text, array $options = []): string
     {
-        $qrSizePt = $options['qr_size_pt'] ?? 100;
+        $qrSizePt = $options['qr_size_pt'] ?? 80;
         $marginPt = $options['margin_pt'] ?? 24;
         $font     = $options['font'] ?? 'Helvetica';
         $fontSize = $options['font_size'] ?? 9;

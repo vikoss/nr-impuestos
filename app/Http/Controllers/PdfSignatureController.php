@@ -50,7 +50,8 @@ class PdfSignatureController extends Controller
 
         // Signature ID as UUID v4
         $uuid = (string) Str::uuid();
-        $qrUrl = 'https://tuempresa.com/qr/' . $uuid;
+        //$qrUrl = 'https://tuempresa.com/qr/' . $uuid;
+        $qrUrl = url("/qr/{$uuid}/");
 
         // Generate QR as PNG
         $qrPng = QrCode::format('png')->size(300)->margin(0)->generate($qrUrl);
@@ -62,11 +63,11 @@ class PdfSignatureController extends Controller
 
         // Annotate last page
         $annotated = $this->pdfSigner->annotateLastPage($pdfBinary, $qrPng, $text, [
-            'qr_size_pt' => 100,
-            'margin_pt' => 24,
+            'qr_size_pt' => 70,
+            'margin_pt' => 130,
             'font' => 'Helvetica',
-            'font_size' => 9,
-            'line_height' => 12,
+            'font_size' => 7,
+            'line_height' => 10,
         ]);
 
         // Compute hash for integrity (optional)

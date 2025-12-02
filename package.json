@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^3.1.0",
-        "pdfjs-dist": "^5.4.449",
+        "pdfjs-dist": "5.4.394",
         "vue": "^3.2.40",
         "vue-loader": "^17.0.0",
         "vue-router": "^4.1.5"

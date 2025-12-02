@@ -7,7 +7,7 @@
       subtitle="Firma digital de contrato"
     />
 
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto" v-if="!pdfBase64">
       <div class="border-dashed border-2 border-wine pt-11 pb-6 px-5 sm:px-20">
         <button-base
           :disabled="app.loading"
@@ -131,14 +131,10 @@ export default {
       },
       uploadFileWithTaxes: async () => {
         app.loading = true
-        const data =await signPdf(app.file, app.onUploadProgress)
-        console.log(data)
+        const data = await signPdf(app.file, app.onUploadProgress)
         pdfBase64String.value = data.pdf_base64
-        console.log(pdfBase64String.value);
-        console.log(pdfBase64.value);
-        
         app.loading = false
-        app.modal = true
+        //app.modal = true
       },
       onUploadProgress: (progressEvent) => {
         app.dataOnUploadProgress.total = progressEvent.total

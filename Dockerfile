@@ -32,7 +32,7 @@ FROM php_base AS app
 WORKDIR /var/www/html
 
 # Instalar nginx y envsubst
-RUN apt-get update && apt-get install -y --no-install-recommends nginx gettext-base \
+RUN apt-get update && apt-get install -y --no-install-recommends qpdf nginx gettext-base \
   && rm -rf /var/lib/apt/lists/*
 
 # Traer vendor y composer
