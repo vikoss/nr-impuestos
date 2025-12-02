@@ -17,7 +17,7 @@
 
     <div v-if="error && nativeFallback" class="flex flex-col h-full">
       <div class="bg-yellow-100 text-yellow-800 p-2 text-xs border-b border-yellow-300">Fallback nativo activado</div>
-      <embed v-if="src" :src="src" type="application/pdf" class="flex-1 w-full border-none" />
+      <embed v-if="src" :src="src" type="application/pdf" class="flex-1 w-full border-none h-max" />
     </div>
 
     <div
@@ -48,7 +48,7 @@
 import { markRaw } from 'vue'
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs'
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.legacy.min.mjs'
+pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.legacy.min.js'
 
 export default {
   name: 'PdfViewer',
