@@ -33,6 +33,9 @@ WORKDIR /var/www/html
 
 # Instalar nginx y envsubst
 RUN apt-get update && apt-get install -y --no-install-recommends qpdf nginx gettext-base \
+  ibmagickwand-dev \
+  && pecl install imagick \
+  && docker-php-ext-enable imagick \
   && rm -rf /var/lib/apt/lists/*
 
 # Traer vendor y composer
