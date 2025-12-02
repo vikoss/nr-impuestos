@@ -39,7 +39,7 @@ Route::controller(PDFTemplateController::class)->group(function () {
 
 // PDF signing and verification
 Route::middleware('auth:api')->post('/sign-pdf', [PdfSignatureController::class, 'sign']);
-Route::get('/qr/{uuid}', [PdfSignatureController::class, 'show'])->name('pdf.signature.show');
+Route::get('/qr/{uuid}', [PdfSignatureController::class, 'show']);
 
 // Provider profile management
 Route::middleware('auth:api')->controller(ProviderController::class)->group(function () {

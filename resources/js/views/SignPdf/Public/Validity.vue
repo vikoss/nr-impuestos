@@ -32,7 +32,7 @@
       />
       <input-base
         id="date"
-        v-model="app.signature.provider.date"
+        :value="app.currentDateFormat()"
         label="Fecha"
         disabled
       />
@@ -77,6 +77,10 @@ export default {
         app.loading = true
         app.signature = await getPdfSignatureByUuid(app.route.params.uuid)
         app.loading = false
+      },
+      currentDateFormat: () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' }
+        return app.date.toLocaleDateString('es-MX', options)
       },
     })
 

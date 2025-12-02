@@ -57,17 +57,24 @@ class PdfSignatureController extends Controller
         $qrPng = QrCode::format('png')->size(300)->margin(0)->generate($qrUrl);
 
         // Determine text to stamp (default sample if not provided)
-        $originalString = 'Cadena Original Sello: || ' . $provider->date . '|' . $provider->rfc . '|' . $provider->contract_number . '|' . $provider->folio . '||';
-        $digitalSeal = 'Sello Digital: ' . base64_encode($originalString);
-        $text = trim($originalString . "\n" . $digitalSeal);
+        $originalString = 'Cadena Original Sello:||' . $provider->rfc . '|' . $provider->contract_number . '|' . $provider->folio . '||';
+        $digitalSeal = 'Sello Digital:' . base64_encode($originalString);
+        $text = trim($originalString . "  " . $digitalSeal);
 
-        // Annotate last page
+        // Annotate last page with absolute positioning (easy to tune):
+        // Coordenadas en puntos (1 pt = 1/72 inch). Ajusta según tu PDF.
         $annotated = $this->pdfSigner->annotateLastPage($pdfBinary, $qrPng, $text, [
-            'qr_size_pt' => 70,
-            'margin_pt' => 130,
-            'font' => 'Helvetica',
-            'font_size' => 7,
-            'line_height' => 10,
+            'qr_size_pt' => 60,
+            'qr_x_pt' => 102,   // X del QR desde el borde izquierdo
+            'qr_y_pt' => 323,  // Y del QR desde el borde superior
+
+            'text_x_pt' => 85,       // inicio del texto (alineado con el QR)
+            'text_y_pt' => 403,      // debajo del QR
+            'text_max_width_pt' => 220, // ancho máximo para el wrap del texto
+
+            'font' => 'Helvetica', // fuente
+            'font_size' => 6, // tamaño de fuente
+            'line_height' => 7, // espaciado entre líneas
         ]);
 
         // Compute hash for integrity (optional)
