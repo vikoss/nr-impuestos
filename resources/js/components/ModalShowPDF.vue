@@ -43,4 +43,10 @@ export default {
 .pt-full {
   padding-top: 100%;
 }
+
+@media (min-width: 1024px) {
+  .pt-full {
+    padding-top: 75%;
+  }
+}
 </style>
